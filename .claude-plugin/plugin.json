@@ -1,0 +1,6 @@
+{
+  "name": "budget-pilot",
+  "displayName": "Budget Pilot",
+  "description": "Sizes any multi-step task before work starts, warns before your usage limit with handoff/downshift/continue options, checkpoints progress so nothing is lost, and routes bulk work to cheaper models.",
+  "version": "0.1.0"
+}
