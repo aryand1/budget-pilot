@@ -33,7 +33,8 @@ Gemini, and Claude web apps.
     │   ├── SKILL.md                      # the skill, open-standard format
     │   ├── scripts/
     │   │   ├── estimate.sh               # pre-task input-size estimate
-    │   │   └── usage.sh                  # tokens used vs your ceiling
+    │   │   ├── usage.sh                  # tokens used vs your ceiling
+    │   │   └── calibrate.sh              # sets the ceiling from history
     │   └── references/
     │       ├── routing-claude-code.md
     │       ├── routing-codex.md
@@ -41,6 +42,11 @@ Gemini, and Claude web apps.
     │       ├── handoff-template.md       # the HANDOFF transfer summary
     │       └── chat-apps-prompt.md       # paste-in block for web apps
     ├── agents/                           # Claude Code subagents (haiku/sonnet)
+    ├── hooks/                            # Claude Code only: usage feed + nudge
+    │   ├── statusline.sh                 # captures official rate-limit data
+    │   ├── limit-nudge.sh                # UserPromptSubmit hook, fires Step 5
+    │   └── hooks.json
+    ├── commands/budget-setup.md          # one-time /budget-setup for Claude Code
     ├── .claude-plugin/                   # plugin.json + marketplace.json
     ├── .budget/config.example
     ├── gemini-extension.json
@@ -83,18 +89,16 @@ costs you two seconds and removes that risk.
 
 ## Calibrate your ceiling
 
-The mid-flight warning needs to know your limit, and most plans don't
-expose that number to scripts. Local logs give tokens used; you supply
-tokens allowed, once:
+The mid-flight warning needs to know how much of your limit is left.
 
 On Claude Code, run `/budget-setup` once; from then on the warning uses
 official rate-limit numbers and no ceiling is needed. On other tools, run
 `scripts/calibrate.sh` to set the ceiling from your usage history, or set
 `BLOCK_BUDGET_TOKENS` manually.
 
-Without a ceiling the skill still runs; it falls back to asking you to
-check the usage view at the L/XL gates, and the mid-flight projection is
-disabled.
+On other tools without a ceiling the skill still runs; it falls back to
+asking you to check the usage view at the L/XL gates, and the mid-flight
+projection is disabled.
 
 ## Model routing
 
@@ -112,6 +116,11 @@ and the README would rather tell you than imply parity.
 never appended. Commit it if you want handoff across machines; gitignore it
 if you don't. `.budget/config` is yours and should stay out of version
 control if you consider your plan details private.
+
+On Claude Code, the statusline also writes
+`~/.claude/budget-pilot/usage-live.json` (the raw status payload) and
+`usage-live.ts` (when it was captured) every turn. They live in your home
+directory because limits are per account, not per project.
 
 ## Known limits
 
