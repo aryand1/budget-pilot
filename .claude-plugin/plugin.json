@@ -1,6 +1,10 @@
 {
   "name": "budget-pilot",
   "displayName": "Budget Pilot",
-  "description": "Sizes any multi-step task before work starts, warns before your usage limit with handoff/downshift/continue options, checkpoints progress so nothing is lost, and routes bulk work to cheaper models.",
-  "version": "0.1.0"
+  "description": "Sizes any multi-step task before work starts, warns before your usage limit with handoff/downshift/continue options using official rate-limit data on Claude Code, checkpoints progress so nothing is lost, and routes bulk work to cheaper models.",
+  "version": "0.2.0",
+  "author": {
+    "name": "Aryan Singh Dalal"
+  },
+  "hooks": "./hooks/hooks.json"
 }

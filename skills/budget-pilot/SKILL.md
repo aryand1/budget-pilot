@@ -72,14 +72,23 @@ agent resumes in any other via Step 0.
 
 ## Step 5: Project forward; warn before the wall
 
-At every phase boundary, after updating STATE.md, do the math:
+At every phase boundary, after updating STATE.md, establish headroom:
 
-    remaining = ceiling - tokens used          (both from scripts/usage.sh)
-    burn rate = tokens used this task / phases completed
+1. OFFICIAL: if `~/.claude/budget-pilot/usage-live.json` exists, read the
+   5-hour and weekly used-percent and reset fields from it. Remaining
+   headroom comes straight from those numbers; no ceiling involved.
+2. FALLBACK: otherwise run `scripts/usage.sh` (tokens used from local logs
+   vs the ceiling in `.budget/config`; run `scripts/calibrate.sh` once to
+   set that ceiling from history).
+
+Then project:
+
+    burn rate = usage this task / phases completed
     projected = burn rate x phases left x 1.3  (margin for failed cycles)
 
-If `projected > remaining`, or if the Step 1 tier estimate already exceeds
-remaining headroom before work starts, STOP at the boundary and say:
+If projected demand exceeds remaining headroom, or a `[budget-pilot]`
+nudge appears in context (treat it as this step's trigger, even
+mid-phase), STOP and say:
 
     Heads up: this task may not finish within your remaining limit
     (~<remaining> tokens left, ~<projected> still needed). Pick one:

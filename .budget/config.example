@@ -1,3 +1,5 @@
-# Rough token ceiling per usage window. Tune after comparing a few runs
-# against your tool's own usage view (see README: Calibrate your ceiling).
+# Only needed where the official feed is absent (Codex, Gemini CLI, etc.).
+# Run scripts/calibrate.sh to set this from history, or set it manually.
 BLOCK_BUDGET_TOKENS=2000000
+# Percent of an official window at which the Claude Code hook starts nudging.
+WARN_PCT=80

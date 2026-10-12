@@ -5,6 +5,13 @@
 set -uo pipefail
 [ -f ".budget/config" ] && . ".budget/config"
 
+feed="$HOME/.claude/budget-pilot/usage-live.json"
+if [ -f "$feed" ]; then
+  echo "== official usage feed (Claude Code) =="
+  cat "$feed"
+  echo
+fi
+
 echo "== tokens used (local logs) =="
 if command -v npx >/dev/null 2>&1; then
   npx -y ccusage@latest blocks 2>/dev/null | tail -20 \
