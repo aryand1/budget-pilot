@@ -94,11 +94,9 @@ The mid-flight warning needs to know how much of your limit is left.
 On Claude Code, run `/budget-setup` once; from then on the warning uses
 official rate-limit numbers and no ceiling is needed. On other tools, run
 `scripts/calibrate.sh` to set the ceiling from your usage history, or set
-`BLOCK_BUDGET_TOKENS` manually.
-
-On other tools without a ceiling the skill still runs; it falls back to
-asking you to check the usage view at the L/XL gates, and the mid-flight
-projection is disabled.
+`BLOCK_BUDGET_TOKENS` manually. Without a ceiling the skill still runs
+there, but it asks you to check the usage view at the L/XL gates instead,
+and the mid-flight projection is off.
 
 ## Model routing
 

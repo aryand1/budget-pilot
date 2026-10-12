@@ -1,6 +1,11 @@
 {
   "name": "budget-pilot",
-  "owner": { "name": "aryand1" },
+  "owner": {
+    "name": "aryand1"
+  },
+  "metadata": {
+    "description": "Budget Pilot: task sizing, usage-limit warnings, checkpoint/resume, and cheap-model delegation for coding agents."
+  },
   "plugins": [
     {
       "name": "budget-pilot",
