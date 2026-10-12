@@ -87,15 +87,10 @@ The mid-flight warning needs to know your limit, and most plans don't
 expose that number to scripts. Local logs give tokens used; you supply
 tokens allowed, once:
 
-1. Copy the config: `cp .budget/config.example .budget/config`
-2. Work a normal session for a while.
-3. Open your tool's usage view (Claude Code `/usage`, Codex `/status`,
-   Gemini CLI `/stats`) and note the percentage of your window used.
-4. Run `skills/budget-pilot/scripts/usage.sh` and note tokens used.
-5. Your ceiling is roughly tokens used divided by the fraction used.
-   Logs show 900k and the tool says 50%? Write
-   `BLOCK_BUDGET_TOKENS=1800000`.
-6. Re-tune when your plan changes or warnings start feeling early or late.
+On Claude Code, run `/budget-setup` once; from then on the warning uses
+official rate-limit numbers and no ceiling is needed. On other tools, run
+`scripts/calibrate.sh` to set the ceiling from your usage history, or set
+`BLOCK_BUDGET_TOKENS` manually.
 
 Without a ceiling the skill still runs; it falls back to asking you to
 check the usage view at the L/XL gates, and the mid-flight projection is
@@ -122,8 +117,11 @@ control if you consider your plan details private.
 
 - Tier estimates are ranges. One failing test loop can multiply cost, and
   the skill says so rather than pretending precision.
-- The ceiling is an approximation. Window resets and what exactly counts
-  against a limit vary by tool and change over time.
+- The official feed depends on Claude Code's statusline payload, whose
+  field names shift between versions; the raw feed file is the contract,
+  and the parsed display degrades to '?' rather than breaking. The feed
+  populates only after the first API response of a session, and official
+  numbers are available on subscription plans.
 - `usage.sh` needs `npx` (it runs ccusage against local logs). Codex logs
   are the only ones that also carry rate-limit status directly.
 - In web apps nothing is measurable, so the paste-in version controls the
