@@ -1,0 +1,11 @@
+{
+  "name": "budget-pilot",
+  "owner": { "name": "aryand1" },
+  "plugins": [
+    {
+      "name": "budget-pilot",
+      "source": "./",
+      "description": "Task sizing, usage-limit warnings, checkpoint/resume, and cheap-model delegation."
+    }
+  ]
+}

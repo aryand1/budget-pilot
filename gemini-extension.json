@@ -1,0 +1,6 @@
+{
+  "name": "budget-pilot",
+  "version": "0.1.0",
+  "description": "Task sizing, usage-limit warnings, checkpoint/resume, and cheap-model delegation for multi-step tasks.",
+  "contextFileName": "AGENTS.md"
+}

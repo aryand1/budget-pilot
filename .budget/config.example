@@ -1,0 +1,3 @@
+# Rough token ceiling per usage window. Tune after comparing a few runs
+# against your tool's own usage view (see README: Calibrate your ceiling).
+BLOCK_BUDGET_TOKENS=2000000
